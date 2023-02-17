@@ -1,0 +1,72 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Interface Facture</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+        <li class="breadcrumb-item">Pages</li>
+        <li class="breadcrumb-item active">Data</li>
+      </ol>
+    </nav>
+  </div>
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Tous les factures</h5>
+            <button type="button" class="btn btn-primary add" data-bs-toggle="modal" data-bs-target="#basicModal"> Ajouter </button>
+            <table datatable class="table table-bordered">
+              <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Date</th>
+                <th scope="col">Total HT</th>
+                <th scope="col">Total TVA</th>
+                <th scope="col">Total TTC</th>
+              </tr>
+              </thead>
+              <tbody>
+
+              <tr *ngFor="let fact of facture" >
+                <th scope="row">{{fact.id_fact_Achat.toString()}}</th>
+                <td>{{fact.date.toString()}}</td>
+                <td>{{fact.total_ht.toString()}}</td>
+                <td>{{fact.total_tva.toString()}}</td>
+                <td>{{fact.total_ttc.toString()}}</td>
+                <td class="action">
+                  <button type="button" (click)="deleteFacture(fact.id_fact_Achat)" class="btn btn-outline-danger"><i class="bi bi-trash-fill"></i></button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<div class="modal fade" id="basicModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Ajouter une facture</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="row g-3" [formGroup]="formValue" (ngSubmit)="addFacture(formValue.value)" >
+          <div class="col-12"> <label for="inputDate6" class="form-label">Date</label> <input type="date" class="form-control" id="inputDate6" placeholder="Date" formControlName ="date" ></div>
+          <div class="col-12"> <label for="inputNanme5" class="form-label">Total HT</label> <input type="text" class="form-control" id="inputNanme5" placeholder="Total HT" formControlName ="total_ht"></div>
+          <div class="col-12"> <label for="inputNanme7" class="form-label">Total TVA</label> <input type="text" class="form-control" id="inputNanme7" placeholder="Total TVA" formControlName ="total_tva"></div>
+          <div class="col-12"> <label for="inputNanme8" class="form-label">Total TTC</label> <input type="text" class="form-control" id="inputNanme8" placeholder="Total TTC" formControlName ="total_ttc"></div>
+          <div class="col-12"> <label for="inputNanme3" class="form-label">Fournisseur</label> <input type="text" class="form-control" id="inputNanme3" placeholder="Fournisseur" formControlName ="id_fournisseur"></div>
+          <div class="modal-footer"> <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> <button type="submit" class="btn btn-primary">Ajouter</button></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

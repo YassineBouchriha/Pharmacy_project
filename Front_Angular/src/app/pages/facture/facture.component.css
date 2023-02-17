@@ -1,0 +1,13 @@
+.action{
+  display : flex;
+  gap : 10px;
+}
+.edit:hover {
+  color : #ffff;
+  font-size: 15px;
+}
+.add{
+  position: relative;
+  float: right;
+  margin-bottom: 20px;
+}

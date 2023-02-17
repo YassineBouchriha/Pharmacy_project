@@ -1,0 +1,101 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Interface Produit</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+        <li class="breadcrumb-item">Pages</li>
+        <li class="breadcrumb-item active">Data</li>
+      </ol>
+    </nav>
+  </div>
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Tous les produits </h5>
+            <button type="button" class="btn btn-primary add" data-bs-toggle="modal" data-bs-target="#basicModal"> Ajouter </button>
+            <table datatable class="table table-bordered">
+              <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Date</th>
+                <th scope="col">Libelle</th>
+                <th scope="col">Description</th>
+                <th scope="col">Prix</th>
+                <th scope="col">Prix Livraison</th>
+                <th scope="col">famille</th>
+                <th scope="col">laboratoire</th>
+              </tr>
+              </thead>
+              <tbody>
+
+              <tr *ngFor="let prod of produit | search : searchText" >
+                <th scope="row">{{prod.id_prd.toString()}}</th>
+                <td>{{prod.date_ajout_prd.toString()}}</td>
+                <td>{{prod.lib_prd.toString()}}</td>
+                <td>{{prod.description_prd.toString()}}</td>
+                <td>{{prod.prix_prd.toString()}}</td>
+                <td>{{prod.prix_livr.toString()}}</td>
+                <td>{{prod.famille.id_famille.toString()}}</td>
+                <td>{{prod.laboratoire.id_labo.toString()}}</td>
+                <td class="action">
+                  <button type="button" (click)="deleteProduit(prod.id_prd)" class="btn btn-outline-danger"><i class="bi bi-trash-fill"></i></button>
+                  <button type="button" (click)="onedit(prod)"  class="btn btn-outline-info edit" data-bs-toggle="modal" data-bs-target="#editModal"><i class="bi bi-pencil-square"></i></button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<div class="modal fade" id="basicModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Ajouter un produit</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="row g-3" #Prodform ="ngForm" (ngSubmit)="addProduit(Prodform.value)" >
+          <div class="col-12"> <label for="inputDate6" class="form-label">Date</label> <input type=date class="form-control" id="inputDate6" placeholder="Date" name ="date_ajout_prd" ngModel ></div>
+          <div class="col-12"> <label for="inputNanme5" class="form-label">Libelle</label> <input type="text" class="form-control" id="inputNanme5" placeholder="Libelle" name ="lib_prd" ngModel ></div>
+          <div class="col-12"> <label for="inputNanme7" class="form-label">Description</label> <input type="text" class="form-control" id="inputNanme7" placeholder="Description" name ="description_prd" ngModel ></div>
+          <div class="col-12"> <label for="inputNanme8" class="form-label">Prix</label> <input type="text" class="form-control" id="inputNanme8" placeholder="prix" name ="prix_prd" ngModel ></div>
+          <div class="col-12"> <label for="inputNanme9" class="form-label">Prix Livraison</label> <input type="text" class="form-control" id="inputNanme9" placeholder="prix livraison" name ="prix_livr" ngModel ></div>
+          <div class="col-12"> <label for="inputNanme15" class="form-label">Laboratoire</label> <input type="text" class="form-control" id="inputNanme15" placeholder="ID" name ="labratoire" ngModel ></div>
+          <div class="col-12"> <label for="inputNanme16" class="form-label">Prix Livraison</label> <input type="text" class="form-control" id="inputNanme16" placeholder="ID" name ="famille" ngModel ></div>
+          <div class="modal-footer"> <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> <button type="submit" class="btn btn-primary">Registre</button></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Basic Modal</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="row g-3" [formGroup]="formValue" >
+          <input formControlName="name" type="hidden" class="form-control" formControlName="id_prd"  >
+          <div class="col-12"> <label for="inputName" class="form-label">Libelle</label> <input formControlName="lib_prd" type="text" class="form-control" id="inputName" placeholder="libelle" ></div>
+          <div class="col-12"> <label for="inputName1" class="form-label">description</label> <input formControlName="description_prd" type="text" class="form-control" id="inputName1" placeholder="description" ></div>
+          <div class="col-12"> <label for="inputName2" class="form-label">prix</label> <input formControlName="prix_prd" type="text" class="form-control" id="inputName2" placeholder="prix" ></div>
+          <div class="col-12"> <label for="inputName3" class="form-label">Date</label> <input formControlName="date_ajout_prd" type="text" class="form-control" id="inputName3" placeholder="date" ></div>
+          <div class="col-12"> <label for="inputName4" class="form-label">prix livraison</label> <input formControlName="prix_livr" type="text" class="form-control" id="inputName4" placeholder="prix livraison" ></div>
+          <div class="col-12"> <label for="inputNanme17" class="form-label">Laboratoire</label> <input type="text" class="form-control" id="inputNanme17" placeholder="ID" formControlName ="laboratoire" ></div>
+          <div class="col-12"> <label for="inputNanme18" class="form-label">Prix Livraison</label> <input type="text" class="form-control" id="inputNanme18" placeholder="ID" formControlName ="famille"></div>
+          <div class="modal-footer"> <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> <button (click)="updateProduit(formValue.value)" type="submit" class="btn btn-primary">Mettre a jour</button></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,82 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Familles</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+        <li class="breadcrumb-item">Pages</li>
+        <li class="breadcrumb-item active">Data</li>
+      </ol>
+    </nav>
+  </div>
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Gerer les familles</h5>
+            <button type="button" class="btn btn-primary add" data-bs-toggle="modal" data-bs-target="#basicModal"> Ajouter </button>
+            <input class="nosubmit" type="text" placeholder="Search..." [(ngModel)]="searchText">
+            <table datatable class="table table-bordered">
+              <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Libelle</th>
+
+                <th scope="col">Action</th>
+              </tr>
+              </thead>
+              <tbody>
+
+              <tr *ngFor="let fam of famille | search : searchText" >
+                <th scope="row">{{fam.id_famille.toString()}}</th>
+                <td>{{fam.lib_famille.toString()}}</td>
+
+
+                <td class="action">
+                  <button type="button" (click)="deleteFamille(fam.id_famille)" class="btn btn-outline-danger"><i class="bi bi-trash-fill"></i></button>
+                  <button type="button" (click)="onedit(fam)"  class="btn btn-outline-info edit" data-bs-toggle="modal" data-bs-target="#editModal"><i class="bi bi-pencil-square"></i></button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<div class="modal fade" id="basicModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Ajouter un famille</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="row g-3" #fournform ="ngForm" (ngSubmit)="addFamille(fournform.value)" novalidate >
+          <div class="col-12"> <label for="inputNanme4" class="form-label">Libelle</label> <input type="text" class="form-control" id="inputNanme4" placeholder="libelle" name ="lib_famille" ngModel required ></div>
+          <div class="modal-footer"> <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> <button type="submit" class="btn btn-primary">Ajouter</button></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Basic Modal</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="row g-3" [formGroup]="formValue" novalidate>
+          <input formControlName="name" type="hidden" class="form-control" formControlName="id_famille"  >
+          <div class="col-12"> <label for="inputName" class="form-label">Libelle</label> <input formControlName="lib_famille" type="text" class="form-control" id="inputName" placeholder="libelle" required ></div>
+          <div class="modal-footer"> <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> <button (click)="updatefamille(formValue.value)" type="submit" class="btn btn-primary">Mettre a jour</button></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
